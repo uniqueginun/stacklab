@@ -9,9 +9,20 @@
 
 @theme inline {
     --font-sans:
-        Instrument Sans, ui-sans-serif, system-ui, sans-serif,
+        'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
+    --font-mono:
+        'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        'Liberation Mono', 'Courier New', monospace;
+
+    --color-sl-background: var(--sl-background);
+    --color-sl-surface: var(--sl-surface);
+    --color-sl-ink: var(--sl-ink);
+    --color-sl-muted: var(--sl-muted);
+    --color-sl-accent: var(--sl-accent);
+    --color-sl-border: var(--sl-border);
+    --color-sl-focus: var(--sl-focus);
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -86,6 +97,83 @@
             'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
             'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
             'Noto Color Emoji';
+    }
+}
+
+:root {
+    --sl-background: #f6f4f1;
+    --sl-surface: #ffffff;
+    --sl-ink: #171717;
+    --sl-muted: #6b6b6b;
+    --sl-accent: #c05621;
+    --sl-border: #e4e0da;
+    --sl-focus: #8a3d18;
+}
+
+.sl-brand,
+.sl-app {
+    --background: var(--sl-background);
+    --foreground: var(--sl-ink);
+    --card: var(--sl-surface);
+    --card-foreground: var(--sl-ink);
+    --primary: var(--sl-accent);
+    --primary-foreground: #ffffff;
+    --secondary: #efece7;
+    --secondary-foreground: var(--sl-ink);
+    --muted: #efece7;
+    --muted-foreground: var(--sl-muted);
+    --accent: #efece7;
+    --accent-foreground: var(--sl-ink);
+    --border: var(--sl-border);
+    --input: var(--sl-border);
+    --ring: var(--sl-focus);
+    --destructive: #b42318;
+    --destructive-foreground: #ffffff;
+    --sidebar-background: #ffffff;
+    --sidebar-foreground: var(--sl-ink);
+    --sidebar-primary: var(--sl-accent);
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: color-mix(in oklab, var(--sl-accent) 12%, white);
+    --sidebar-accent-foreground: var(--sl-accent);
+    --sidebar-border: var(--sl-border);
+    --sidebar-ring: var(--sl-focus);
+    --sidebar: #ffffff;
+    color: var(--sl-ink);
+    background-color: var(--sl-background);
+}
+
+.sl-app {
+    background-color: #f7f7f5;
+    background-image: none;
+}
+
+.sl-grid-bg {
+    background-color: var(--sl-background);
+    background-image:
+        linear-gradient(to right, rgb(0 0 0 / 0.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(0 0 0 / 0.045) 1px, transparent 1px);
+    background-size: 48px 48px;
+}
+
+@keyframes sl-caret {
+    50% {
+        opacity: 0;
+    }
+}
+
+.sl-caret {
+    display: inline-block;
+    width: 0.5ch;
+    height: 1.05em;
+    margin-left: 1px;
+    vertical-align: -0.15em;
+    background: #c05621;
+    animation: sl-caret 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sl-caret {
+        animation: none;
     }
 }
 

@@ -2,9 +2,14 @@
 
 namespace App\Providers;
 
+use App\Operations\Aftermath\FinalizeSiteAftermath;
+use App\Operations\Aftermath\PersistServerInfoAftermath;
+use App\Operations\Aftermath\StepAftermathRegistry;
 use Carbon\CarbonImmutable;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -15,7 +20,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->tag([
+            PersistServerInfoAftermath::class,
+            FinalizeSiteAftermath::class,
+        ], 'operation.step_aftermaths');
+
+        $this->app->singleton(StepAftermathRegistry::class, function ($app): StepAftermathRegistry {
+            return new StepAftermathRegistry($app->tagged('operation.step_aftermaths'));
+        });
     }
 
     /**
@@ -24,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        $this->configureHttpClient();
     }
 
     /**
@@ -46,5 +59,19 @@ class AppServiceProvider extends ServiceProvider
                 ->uncompromised()
             : null,
         );
+    }
+
+    protected function configureHttpClient(): void
+    {
+        Http::macro('github', function (string $token): PendingRequest {
+            return Http::baseUrl('https://api.github.com')
+                ->withToken($token)
+                ->acceptJson()
+                ->withHeaders([
+                    'X-GitHub-Api-Version' => '2022-11-28',
+                ])
+                ->timeout(10)
+                ->connectTimeout(3);
+        });
     }
 }

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import { home } from '@/routes';
 
 defineProps<{
@@ -11,31 +10,39 @@ defineProps<{
 
 <template>
     <div
-        class="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10"
+        class="sl-brand sl-grid-bg relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-6 py-10"
     >
-        <div class="w-full max-w-sm">
+        <div
+            class="pointer-events-none absolute -top-24 right-0 size-[28rem] rounded-full bg-[radial-gradient(circle,rgb(192_86_33_/_0.12),transparent_65%)]"
+        />
+
+        <div class="relative w-full max-w-sm">
             <div class="flex flex-col gap-8">
-                <div class="flex flex-col items-center gap-4">
+                <div class="flex flex-col items-center gap-5 text-center">
                     <Link
                         :href="home()"
-                        class="flex flex-col items-center gap-2 font-medium"
+                        class="text-3xl font-bold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sl-focus sm:text-4xl"
                     >
-                        <div
-                            class="mb-1 flex h-9 w-9 items-center justify-center rounded-md"
-                        >
-                            <AppLogoIcon
-                                class="size-9 fill-current text-[var(--foreground)] dark:text-white"
-                            />
-                        </div>
+                        <span class="text-sl-ink">STACK</span
+                        ><span class="text-sl-accent">LAB</span>
                         <span class="sr-only">{{ title }}</span>
                     </Link>
-                    <div class="space-y-2 text-center">
-                        <h1 class="text-xl font-medium">{{ title }}</h1>
-                        <p class="text-center text-sm text-muted-foreground">
+
+                    <div class="space-y-2">
+                        <h1
+                            class="text-xl font-medium tracking-tight text-sl-ink"
+                        >
+                            {{ title }}
+                        </h1>
+                        <p
+                            v-if="description"
+                            class="text-sm leading-relaxed text-sl-muted"
+                        >
                             {{ description }}
                         </p>
                     </div>
                 </div>
+
                 <slot />
             </div>
         </div>

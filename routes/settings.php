@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GitHubConnectionController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\Settings\SecurityController;
 use Illuminate\Auth\Middleware\RequirePassword;
@@ -24,4 +25,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('user-password.update');
 
     Route::inertia('settings/appearance', 'settings/Appearance')->name('appearance.edit');
+
+    Route::get('settings/connections/github/redirect', [GitHubConnectionController::class, 'redirect'])
+        ->name('connections.github.redirect');
+    Route::get('settings/connections/github/callback', [GitHubConnectionController::class, 'callback'])
+        ->name('connections.github.callback');
+    Route::delete('settings/connections/github', [GitHubConnectionController::class, 'destroy'])
+        ->name('connections.github.destroy');
 });

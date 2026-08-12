@@ -14,8 +14,8 @@ import { request } from '@/routes/password';
 
 defineOptions({
     layout: {
-        title: 'Log in to your account',
-        description: 'Enter your email and password below to log in',
+        title: 'Log in to your panel',
+        description: 'Signed sessions stay on your own machine.',
     },
 });
 
@@ -30,7 +30,7 @@ defineProps<{
 
     <div
         v-if="status"
-        class="mb-4 text-center text-sm font-medium text-green-600"
+        class="mb-4 text-center text-sm font-medium text-sl-accent"
     >
         {{ status }}
     </div>
@@ -41,9 +41,14 @@ defineProps<{
         v-slot="{ errors, processing }"
         class="flex flex-col gap-6"
     >
-        <div class="grid gap-6">
+        <div class="grid gap-5">
             <div class="grid gap-2">
-                <Label for="email">Email address</Label>
+                <Label
+                    for="email"
+                    class="font-mono text-[11px] tracking-[0.16em] text-sl-muted uppercase"
+                >
+                    Email
+                </Label>
                 <Input
                     id="email"
                     type="email"
@@ -52,21 +57,31 @@ defineProps<{
                     autofocus
                     :tabindex="1"
                     autocomplete="email"
-                    placeholder="email@example.com"
+                    placeholder="edu@stacklab.dev"
+                    class="h-11 rounded-md border-sl-border bg-white"
+                    :aria-invalid="Boolean(errors.email)"
                 />
-                <InputError :message="errors.email" />
+                <InputError
+                    :message="errors.email"
+                    class="font-mono text-[11px] tracking-wide uppercase"
+                />
             </div>
 
             <div class="grid gap-2">
-                <div class="flex items-center justify-between">
-                    <Label for="password">Password</Label>
+                <div class="flex items-center justify-between gap-3">
+                    <Label
+                        for="password"
+                        class="font-mono text-[11px] tracking-[0.16em] text-sl-muted uppercase"
+                    >
+                        Password
+                    </Label>
                     <TextLink
                         v-if="canResetPassword"
                         :href="request()"
-                        class="text-sm"
+                        class="text-xs text-sl-muted no-underline hover:text-sl-accent"
                         :tabindex="5"
                     >
-                        Forgot your password?
+                        Forgot password?
                     </TextLink>
                 </div>
                 <PasswordInput
@@ -76,20 +91,31 @@ defineProps<{
                     :tabindex="2"
                     autocomplete="current-password"
                     placeholder="Password"
+                    class="h-11 rounded-md border-sl-border bg-white"
+                    :aria-invalid="Boolean(errors.password)"
                 />
-                <InputError :message="errors.password" />
+                <InputError
+                    :message="errors.password"
+                    class="font-mono text-[11px] tracking-wide uppercase"
+                />
             </div>
 
-            <div class="flex items-center justify-between">
-                <Label for="remember" class="flex items-center space-x-3">
-                    <Checkbox id="remember" name="remember" :tabindex="3" />
-                    <span>Remember me</span>
-                </Label>
-            </div>
+            <Label
+                for="remember"
+                class="flex items-center gap-3 text-sm text-sl-ink"
+            >
+                <Checkbox
+                    id="remember"
+                    name="remember"
+                    :tabindex="3"
+                    class="border-sl-border data-[state=checked]:border-sl-accent data-[state=checked]:bg-sl-accent"
+                />
+                <span>Remember this device</span>
+            </Label>
 
             <Button
                 type="submit"
-                class="mt-4 w-full"
+                class="mt-1 h-11 w-full rounded-md bg-sl-accent text-white hover:bg-[#a8471a]"
                 :tabindex="4"
                 :disabled="processing"
                 data-test="login-button"
@@ -99,9 +125,15 @@ defineProps<{
             </Button>
         </div>
 
-        <div class="text-center text-sm text-muted-foreground">
-            Don't have an account?
-            <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
+        <div class="text-center text-sm text-sl-muted">
+            No panel yet?
+            <TextLink
+                :href="register()"
+                class="text-sl-ink underline underline-offset-4"
+                :tabindex="5"
+            >
+                Create an account
+            </TextLink>
         </div>
     </Form>
 </template>

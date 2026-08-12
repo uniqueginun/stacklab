@@ -16,8 +16,8 @@ defineProps<{
 
 defineOptions({
     layout: {
-        title: 'Create an account',
-        description: 'Enter your details below to create your account',
+        title: 'Create your account',
+        description: 'The first account becomes the panel owner.',
     },
 });
 </script>
@@ -31,9 +31,14 @@ defineOptions({
         v-slot="{ errors, processing }"
         class="flex flex-col gap-6"
     >
-        <div class="grid gap-6">
+        <div class="grid gap-5">
             <div class="grid gap-2">
-                <Label for="name">Name</Label>
+                <Label
+                    for="name"
+                    class="font-mono text-[11px] tracking-[0.16em] text-sl-muted uppercase"
+                >
+                    Name
+                </Label>
                 <Input
                     id="name"
                     type="text"
@@ -42,13 +47,22 @@ defineOptions({
                     :tabindex="1"
                     autocomplete="name"
                     name="name"
-                    placeholder="Full name"
+                    placeholder="Ada Lovelace"
+                    class="h-11 rounded-md border-sl-border bg-white"
                 />
-                <InputError :message="errors.name" />
+                <InputError
+                    :message="errors.name"
+                    class="font-mono text-[11px] tracking-wide uppercase"
+                />
             </div>
 
             <div class="grid gap-2">
-                <Label for="email">Email address</Label>
+                <Label
+                    for="email"
+                    class="font-mono text-[11px] tracking-[0.16em] text-sl-muted uppercase"
+                >
+                    Email
+                </Label>
                 <Input
                     id="email"
                     type="email"
@@ -56,13 +70,22 @@ defineOptions({
                     :tabindex="2"
                     autocomplete="email"
                     name="email"
-                    placeholder="email@example.com"
+                    placeholder="ada@stacklab.dev"
+                    class="h-11 rounded-md border-sl-border bg-white"
                 />
-                <InputError :message="errors.email" />
+                <InputError
+                    :message="errors.email"
+                    class="font-mono text-[11px] tracking-wide uppercase"
+                />
             </div>
 
             <div class="grid gap-2">
-                <Label for="password">Password</Label>
+                <Label
+                    for="password"
+                    class="font-mono text-[11px] tracking-[0.16em] text-sl-muted uppercase"
+                >
+                    Password
+                </Label>
                 <PasswordInput
                     id="password"
                     required
@@ -71,12 +94,24 @@ defineOptions({
                     name="password"
                     placeholder="Password"
                     :passwordrules="passwordRules"
+                    class="h-11 rounded-md border-sl-border bg-white"
                 />
-                <InputError :message="errors.password" />
+                <p class="text-xs text-sl-muted">
+                    At least 12 characters, including a number.
+                </p>
+                <InputError
+                    :message="errors.password"
+                    class="font-mono text-[11px] tracking-wide uppercase"
+                />
             </div>
 
             <div class="grid gap-2">
-                <Label for="password_confirmation">Confirm password</Label>
+                <Label
+                    for="password_confirmation"
+                    class="font-mono text-[11px] tracking-[0.16em] text-sl-muted uppercase"
+                >
+                    Confirm password
+                </Label>
                 <PasswordInput
                     id="password_confirmation"
                     required
@@ -85,13 +120,17 @@ defineOptions({
                     name="password_confirmation"
                     placeholder="Confirm password"
                     :passwordrules="passwordRules"
+                    class="h-11 rounded-md border-sl-border bg-white"
                 />
-                <InputError :message="errors.password_confirmation" />
+                <InputError
+                    :message="errors.password_confirmation"
+                    class="font-mono text-[11px] tracking-wide uppercase"
+                />
             </div>
 
             <Button
                 type="submit"
-                class="mt-2 w-full"
+                class="mt-1 h-11 w-full rounded-md bg-sl-accent text-white hover:bg-[#a8471a]"
                 tabindex="5"
                 :disabled="processing"
                 data-test="register-user-button"
@@ -101,14 +140,15 @@ defineOptions({
             </Button>
         </div>
 
-        <div class="text-center text-sm text-muted-foreground">
-            Already have an account?
+        <div class="text-center text-sm text-sl-muted">
+            Already have a panel?
             <TextLink
                 :href="login()"
-                class="underline underline-offset-4"
+                class="text-sl-ink underline underline-offset-4"
                 :tabindex="6"
-                >Log in</TextLink
             >
+                Log in
+            </TextLink>
         </div>
     </Form>
 </template>

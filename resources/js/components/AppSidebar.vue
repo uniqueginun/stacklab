@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import { BookOpen, FolderGit2, LayoutGrid } from '@lucide/vue';
+import { Globe, LayoutGrid, Server, Settings } from '@lucide/vue';
 import AppLogo from '@/components/AppLogo.vue';
-import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
-import NavUser from '@/components/NavUser.vue';
 import {
     Sidebar,
     SidebarContent,
     SidebarFooter,
     SidebarHeader,
     SidebarMenu,
-    SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
+import { edit as editProfile } from '@/routes/profile';
+import { index as serversIndex } from '@/routes/servers';
+import { index as sitesIndex } from '@/routes/sites';
 import type { NavItem } from '@/types';
 
 const mainNavItems: NavItem[] = [
@@ -23,43 +22,44 @@ const mainNavItems: NavItem[] = [
         href: dashboard(),
         icon: LayoutGrid,
     },
-];
-
-const footerNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: FolderGit2,
+        title: 'Servers',
+        href: serversIndex(),
+        icon: Server,
     },
     {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
+        title: 'Sites',
+        href: sitesIndex(),
+        icon: Globe,
+    },
+    {
+        title: 'Settings',
+        href: editProfile(),
+        icon: Settings,
     },
 ];
 </script>
 
 <template>
-    <Sidebar collapsible="icon" variant="inset">
-        <SidebarHeader>
+    <Sidebar collapsible="icon" variant="sidebar" class="border-r border-sl-border">
+        <SidebarHeader class="border-b border-sl-border px-3 py-4">
             <SidebarMenu>
                 <SidebarMenuItem>
-                    <SidebarMenuButton size="lg" as-child>
-                        <Link :href="dashboard()">
-                            <AppLogo />
-                        </Link>
-                    </SidebarMenuButton>
+                    <AppLogo />
                 </SidebarMenuItem>
             </SidebarMenu>
         </SidebarHeader>
 
-        <SidebarContent>
+        <SidebarContent class="px-2 py-4">
             <NavMain :items="mainNavItems" />
         </SidebarContent>
 
-        <SidebarFooter>
-            <NavFooter :items="footerNavItems" />
-            <NavUser />
+        <SidebarFooter class="border-t border-sl-border px-4 py-3">
+            <p
+                class="truncate font-mono text-[11px] tracking-wide text-sl-muted group-data-[collapsible=icon]:hidden"
+            >
+                StackLab 1.2.0
+            </p>
         </SidebarFooter>
     </Sidebar>
     <slot />

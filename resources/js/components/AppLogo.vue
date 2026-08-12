@@ -1,19 +1,22 @@
 <script setup lang="ts">
-import { usePage } from '@inertiajs/vue3';
-import AppLogoIcon from '@/components/AppLogoIcon.vue';
-
-const name = usePage().props.name;
+import { Link } from '@inertiajs/vue3';
+import { dashboard } from '@/routes';
 </script>
 
 <template>
-    <div
-        class="flex aspect-square size-8 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground"
+    <Link
+        :href="dashboard()"
+        class="flex items-center gap-2 px-1 py-0.5 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sl-focus"
     >
-        <AppLogoIcon class="size-5 fill-current text-white dark:text-black" />
-    </div>
-    <div class="ml-1 grid flex-1 text-left text-sm">
-        <span class="mb-0.5 truncate leading-tight font-semibold">{{
-            name
-        }}</span>
-    </div>
+        <span
+            class="flex size-5 shrink-0 items-center justify-center rounded-[3px] bg-sl-accent text-[10px] font-bold text-white"
+            aria-hidden="true"
+        >
+            S
+        </span>
+        <span class="text-base font-bold tracking-tight">
+            <span class="text-sl-ink">STACK</span
+            ><span class="text-sl-accent">LAB</span>
+        </span>
+    </Link>
 </template>
